@@ -1,0 +1,37 @@
+===============================================
+The purpose of this project is to test the rate 
+change of memcpy function with ARRAY_SIZE in 
+Ubuntu 18.04.4 under a single thread in a 
+virtual machine, and to compare the bandwidth rate 
+growth of three different optimization schemes.
+The project contributes to a deeper understanding 
+of computer storage architecture
+===============================================
+* 1.memcpy1:Single-byte copy: This is a standard 
+  generic implementation of memcpy, but the performance 
+  is very low because while can only copy one byte 
+  per loop. Corresponding test results mem_Rate1;
+* 2.memcpy2:Cycle unfolding copy: reduce the number 
+  of cycles, increase the operation in the loop body, 
+  reduce the number of jumps, improve the performance 
+  of program execution, and correspond to the test 
+  results mem_Rate2;
+* 3.memcpy3:Increase the step size (long pointer): 
+  The char pointer is converted into a long pointer, 
+  and the corresponding data bit in the 64-bit machine 
+  indicates that the size of the data that can be 
+  transmitted at one time is 64bit, so the efficiency 
+  of the 8-byte pointer is the highest under the same 
+  conditions. Corresponding test results mem_Rate3;
+* 4.Consider data alignment and the above: if you 
+  follow the implementation of the standard memcpy 
+  function, each while loop can only copy 1 byte, 
+  which will waste a lot of memory access cycles. 
+  So can we copy memory in units of 4 bytes per 32-bit 
+  CPU bit width? The process of CPU fetching data from memory, 
+  aligning the stored data can speed up CPU processing, 
+  because in the same clock cycle, the data accessed by 
+  the CPU is always accessed in 32-bit alignment. 
+  Corresponding test results mem_Rate4;
+===============================================
+LAST UPDATE: November 18 2023
